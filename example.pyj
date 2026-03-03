@@ -1,0 +1,43 @@
+from pypyj import *
+
+print("=== open() example ===")
+
+f = open("example.txt", "w")
+f.write("Line1\n")
+f.write("Line2\n")
+f.close()
+
+f = open("example.txt", "r")
+print("read():")
+print(f.read())
+f.close()
+
+f = open("example.txt", "r")
+print("read(5):", f.read(5))
+f.close()
+
+f = open("example.txt", "a")
+f.write("Line3\n")
+f.close()
+
+print("=== pow ===")
+print(pow(2, 5))
+print(pow(2, 5, 7))
+
+print("=== bin / oct ===")
+print(bin(10))
+print(oct(10))
+
+print("=== all / any ===")
+print(all([1, 2, 3]))
+print(any([0, 0, 5]))
+
+print("=== reversed ===")
+print(reversed("hola"))
+print(reversed([1, 2, 3]))
+
+print("=== sorted ===")
+print(sorted([5, 3, 4]))
+print(sorted([5, 3, 4], reverse=True))
+
+print("=== END EXAMPLE ===")

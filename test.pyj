@@ -1,0 +1,128 @@
+from pypyj import *
+
+File = JavaClass("java.io.File")
+
+def assert_equal(a, b, msg):
+    if a != b:
+        print("FAIL:", msg, "| Expected:", b, "| Got:", a)
+    else:
+        print("OK:", msg)
+
+def assert_raises(func, msg):
+    try:
+        func()
+        print("FAIL:", msg, "| Expected exception")
+    except:
+        print("OK:", msg)
+
+
+# =========================
+# open() tests
+# =========================
+
+filename = "test_temp.txt"
+
+# w
+f = open(filename, "w")
+f.write("Hello\nWorld\n")
+f.close()
+
+# r
+f = open(filename, "r")
+assert_equal(f.read(), "Hello\nWorld\n", "read() full")
+f.close()
+
+# read(size)
+f = open(filename, "r")
+assert_equal(f.read(5), "Hello", "read(size)")
+f.close()
+
+# readline()
+f = open(filename, "r")
+assert_equal(f.readline(), "Hello\n", "readline()")
+f.close()
+
+# readlines()
+f = open(filename, "r")
+assert_equal(f.readlines(), ["Hello\n", "World\n"], "readlines()")
+f.close()
+
+# a
+f = open(filename, "a")
+f.write("Extra\n")
+f.close()
+
+f = open(filename, "r")
+assert_equal("Extra\n" in f.read(), True, "append mode")
+f.close()
+
+# r+
+f = open(filename, "r+")
+f.seek(0)
+f.write("Start\n")
+f.close()
+
+# w+
+f = open(filename, "w+")
+f.write("Reset\n")
+f.seek(0)
+assert_equal(f.read(), "Reset\n", "w+ mode")
+f.close()
+
+# a+
+f = open(filename, "a+")
+f.write("End\n")
+f.close()
+
+# Cleanup
+File(filename).delete()
+
+
+# =========================
+# pow()
+# =========================
+
+assert_equal(pow(2, 3), 8, "pow 2 args")
+assert_equal(pow(2, 3, 5), 3, "pow 3 args")
+assert_raises(lambda: pow(2, -1, 5), "pow negative exponent with mod")
+assert_raises(lambda: pow(2, 3, 0), "pow mod zero")
+
+
+# =========================
+# bin / oct
+# =========================
+
+assert_equal(bin(10), "0b1010", "bin positive")
+assert_equal(bin(-10), "-0b1010", "bin negative")
+assert_equal(oct(8), "0o10", "oct positive")
+assert_equal(oct(-8), "-0o10", "oct negative")
+assert_raises(lambda: bin("a"), "bin wrong type")
+
+
+# =========================
+# all / any
+# =========================
+
+assert_equal(all([1, 2, 3]), True, "all true")
+assert_equal(all([1, 0, 3]), False, "all false")
+assert_equal(any([0, 0, 3]), True, "any true")
+assert_equal(any([0, 0, 0]), False, "any false")
+
+
+# =========================
+# reversed
+# =========================
+
+assert_equal(reversed("abc"), "cba", "reversed string")
+assert_equal(reversed([1, 2, 3]), [3, 2, 1], "reversed list")
+
+
+# =========================
+# sorted
+# =========================
+
+assert_equal(sorted([3, 1, 2]), [1, 2, 3], "sorted normal")
+assert_equal(sorted([3, 1, 2], reverse=True), [3, 2, 1], "sorted reverse")
+
+
+print("=== TESTING COMPLETE ===")
