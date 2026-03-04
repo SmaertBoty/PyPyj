@@ -294,3 +294,70 @@ def sorted(iterable: list[object] | tuple[object, ...] | object, reverse: bool =
     if reverse:
         new_list.reverse()
     return new_list
+    
+# ===========================
+# Python standard exceptions
+# raise Exception(str)
+# ===========================
+class BaseException: pass
+class ArithmeticError: pass
+class BufferError: pass
+class LookupError: pass
+class AssertionError: pass
+class AttributeError: pass
+class EOFError: pass
+class FloatingPointError: pass
+class GeneratorExit: pass
+class ImportError: pass
+class ModuleNotFoundError: pass
+class IndexError: pass
+class KeyError: pass
+class KeyboardInterrupt: pass
+class MemoryError: pass
+class NameError: pass
+class UnboundLocalError: pass
+class OSError: pass
+class BlockingIOError: pass
+class ChildProcessError: pass
+class ConnectionError: pass
+class BrokenPipeError: pass
+class ConnectionAbortedError: pass
+class ConnectionRefusedError: pass
+class ConnectionResetError: pass
+class FileExistsError: pass
+class FileNotFoundError: pass
+class InterruptedError: pass
+class IsADirectoryError: pass
+class NotADirectoryError: pass
+class PermissionError: pass
+class ProcessLookupError: pass
+class TimeoutError: pass
+class ReferenceError: pass
+class RuntimeError: pass
+class NotImplementedError: pass
+class RecursionError: pass
+class SyntaxError: pass
+class IndentationError: pass
+class TabError: pass
+class SystemError: pass
+class TypeError: pass
+class ValueError: pass
+class UnicodeError: pass
+class UnicodeDecodeError: pass
+class UnicodeEncodeError: pass
+class UnicodeTranslateError: pass
+class EnvironmentError: pass
+class IOError: pass
+class WindowsError: pass
+class StopAsyncIteration: pass
+class Warning: pass
+class UserWarning: pass
+class DeprecationWarning: pass
+class PendingDeprecationWarning: pass
+class SyntaxWarning: pass
+class RuntimeWarning: pass
+class FutureWarning: pass
+class ImportWarning: pass
+class UnicodeWarning: pass
+class BytesWarning: pass
+class ResourceWarning: pass
