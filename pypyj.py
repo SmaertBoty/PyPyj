@@ -1,5 +1,5 @@
 #
-# PyPyj v1.0.0
+# PyPyj v1.0.1
 #
 # PyPyj is a lightweight extension layer for Pyjinn that re‑implements selected 
 # Python built‑in functions which are currently not supported natively by Pyjinn.
@@ -7,6 +7,7 @@
 # https://github.com/Minescripters/PyPyj
 #
 
+_RuntimeException = JavaClass("java.lang.RuntimeException")
 File = JavaClass("java.io.File")
 RandomAccessFile = JavaClass("java.io.RandomAccessFile")
 BufferedWriter = JavaClass("java.io.BufferedWriter")
@@ -34,7 +35,7 @@ class _File:
 
         valid = ["r", "w", "a", "r+", "w+", "a+"]
         if mode not in valid:
-            raise ValueError("Unsupported mode: " + mode)
+            raise _RuntimeException("ValueError: Unsupported mode: " + mode)
 
         file_obj = File(path)
 
@@ -68,7 +69,7 @@ class _File:
 
         if size is not None:
             if not isinstance(size, int):
-                raise TypeError("size must be int or None")
+                raise _RuntimeException("TypeError: size must be int or None")
             if size <= 0:
                 return ""
 
@@ -129,7 +130,7 @@ class _File:
         self._check_closed()
 
         if not isinstance(text, str):
-            raise TypeError("write() argument must be str")
+            raise _RuntimeException("TypeError: write() argument must be str")
 
         self._raf.close()
 
@@ -168,7 +169,7 @@ class _File:
 
     def _check_closed(self) -> None:
         if self.closed:
-            raise ValueError("I/O operation on closed file.")
+            raise _RuntimeException("ValueError: I/O operation on closed file.")
 
 
 def open(path: str, mode: str = "r") -> _File:
@@ -184,17 +185,17 @@ def pow(x: int | float, y: int | float, mod: int | None = None) -> int | float:
         return x ** y
 
     if not isinstance(x, int) or not isinstance(y, int) or not isinstance(mod, int):
-        raise TypeError("pow() 3rd argument not allowed unless all arguments are integers")
+        raise _RuntimeException("TypeError: pow() 3rd argument not allowed unless all arguments are integers")
 
     if mod == 0:
-        raise ValueError("pow() 3rd argument cannot be 0")
+        raise _RuntimeException("ValueError: pow() 3rd argument cannot be 0")
 
     result = 1
     base = x % mod
     exp = y
 
     if exp < 0:
-        raise ValueError("pow() 2nd argument cannot be negative when 3rd argument specified")
+        raise _RuntimeException("ValueError: pow() 2nd argument cannot be negative when 3rd argument specified")
 
     while exp > 0:
         if exp % 2 == 1:
@@ -226,7 +227,7 @@ def _to_base(n: int, base: int) -> str:
 
 def bin(x: int) -> str:
     if not isinstance(x, int):
-        raise TypeError("bin() argument must be int")
+        raise _RuntimeException("TypeError: bin() argument must be int")
 
     if x < 0:
         return "-0b" + _to_base(-x, 2)
@@ -235,7 +236,7 @@ def bin(x: int) -> str:
 
 def oct(x: int) -> str:
     if not isinstance(x, int):
-        raise TypeError("oct() argument must be int")
+        raise _RuntimeException("TypeError: oct() argument must be int")
 
     if x < 0:
         return "-0o" + _to_base(-x, 8)
